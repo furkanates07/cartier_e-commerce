@@ -15,7 +15,7 @@ This is a simple e-commerce website built using Firebase, Tailwind CSS, Google A
 - Responsive design
 - Simple and clean UI
 
-##Pages
+## Pages
 
 - Home
   ![HomePage](/src/images/homepage.png)
