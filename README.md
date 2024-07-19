@@ -15,16 +15,18 @@ This is a simple e-commerce website built using Firebase, Tailwind CSS, Google A
 - Responsive design
 - Simple and clean UI
 
-###Home Page
-![HomePage](/src/images/homepage.png)
-###Product Page
-![Product](/src/images/product.png)
-###Cart Page
-![Cart](/src/images/cart.png)
-###Favorites Page
-![Favorites](/src/images/favorites.png)
-###Profile Page
-![Profile](/src/images/profile.png)
+##Pages
+
+- Home
+  ![HomePage](/src/images/homepage.png)
+- Product
+  ![Product](/src/images/product.png)
+- Cart
+  ![Cart](/src/images/cart.png)
+- Favorites
+  ![Favorites](/src/images/favorites.png)
+- Profile
+  ![Profile](/src/images/profile.png)
 
 ## Technologies Used
 
