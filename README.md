@@ -15,6 +15,12 @@ This is a simple e-commerce website built using Firebase, Tailwind CSS, Google A
 - Responsive design
 - Simple and clean UI
 
+![HomePage](/src/images/homepage.png)
+![Product](/src/images/product.png)
+![Cart](/src/images/cart.png)
+![Favorites](/src/images/favorites.png)
+![Profile](/src/images/profile.png)
+
 ## Technologies Used
 
 - Vue
