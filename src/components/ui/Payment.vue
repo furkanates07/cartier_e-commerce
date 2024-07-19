@@ -60,8 +60,10 @@
             v-model="newCard.cardNumber"
             type="text"
             placeholder="1234 5678 9101 1121"
+            maxlength="19"
             class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm"
             required
+            @input="formatCardNumber"
           />
         </div>
         <div class="flex space-x-4 mb-4">
@@ -76,9 +78,14 @@
               v-model="newCard.expiryDate"
               type="text"
               placeholder="MM/YY"
+              maxlength="5"
               class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm"
               required
+              @input="formatExpiry"
             />
+            <p v-if="expiryError" class="text-red-500 text-xs mt-1">
+              {{ expiryError }}
+            </p>
           </div>
           <div class="flex-1">
             <label for="cvv" class="block text-sm font-medium text-gray-700"
@@ -89,8 +96,10 @@
               v-model="newCard.cvv"
               type="text"
               placeholder="123"
+              maxlength="3"
               class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm"
               required
+              @input="validateCVV"
             />
           </div>
         </div>
@@ -120,10 +129,12 @@ const userStore = useUserStore();
 const cards = userStore.userProfile.savedCards;
 
 const addCard = async () => {
-  await userStore.addCard({ ...newCard.value });
-  newCard.value.cardNumber = "";
-  newCard.value.expiryDate = "";
-  newCard.value.cvv = "";
+  if (validateCardNumber() && validateExpiry() && validateCVV()) {
+    await userStore.addCard({ ...newCard.value });
+    newCard.value.cardNumber = "";
+    newCard.value.expiryDate = "";
+    newCard.value.cvv = "";
+  }
 };
 
 const deleteCard = async (index: number) => {
@@ -135,6 +146,52 @@ const activeTab = ref("myCards");
 const activeTabClass = "bg-blue-400 text-white py-2 px-4 rounded-sm";
 const inactiveTabClass =
   "bg-gray-200 text-gray-700 py-2 px-4 rounded-sm hover:bg-gray-300";
+
+const expiryError = ref("");
+
+const formatCardNumber = () => {
+  newCard.value.cardNumber = newCard.value.cardNumber
+    .replace(/\D/g, "")
+    .replace(/(\d{4})(?=\d)/g, "$1 ")
+    .trim();
+};
+
+const formatExpiry = () => {
+  newCard.value.expiryDate = newCard.value.expiryDate
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(?=\d)/g, "$1/")
+    .trim();
+  validateExpiry();
+};
+
+const validateCVV = () => {
+  newCard.value.cvv = newCard.value.cvv.replace(/\D/g, "").trim();
+  return true; // or return false if the validation fails
+};
+
+const validateCardNumber = () => {
+  const regex = /^(\d{4} ){3}\d{4}$/;
+  return regex.test(newCard.value.cardNumber);
+};
+
+const validateExpiry = () => {
+  const [month, year] = newCard.value.expiryDate.split("/").map(Number);
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear() % 100;
+
+  if (year < currentYear || (year === currentYear && month < currentMonth)) {
+    expiryError.value = "This card is expired";
+    return false;
+  } else {
+    expiryError.value = "";
+    return true;
+  }
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-red-500 {
+  color: #f56565;
+}
+</style>
