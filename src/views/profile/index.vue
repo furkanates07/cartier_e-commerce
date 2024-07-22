@@ -1,13 +1,18 @@
 <template>
-  <div class="grid grid-cols-4 gap-10">
-    <div class="col-span-1 bg-gray-100 flex flex-col gap-2 h-min">
-      <div class="flex flex-row justify-center px-4 py-3">
+  <div class="flex flex-col sm:grid sm:grid-cols-4 gap-2 sm:gap-10">
+    <div
+      class="col-span-1 bg-gray-100 flex flex-col justify-center gap-2 h-min"
+    >
+      <div
+        v-if="authStore.isAuth"
+        class="hidden sm:flex flex-row justify-center px-4 py-3"
+      >
         <span class="font-bold text-lg"
           >{{ userStore.getUserProfile.name }}
           {{ userStore.getUserProfile.surname }}</span
         >
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-row justify-center sm:flex-col">
         <div
           v-for="tab in tabs"
           :key="tab.key"
@@ -16,7 +21,7 @@
         >
           <div class="flex flex-row gap-2 py-3 px-6">
             <span class="material-symbols-outlined"> {{ tab.icon }} </span>
-            <span>{{ tab.name }}</span>
+            <span class="hidden sm:block">{{ tab.name }}</span>
           </div>
         </div>
       </div>
