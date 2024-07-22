@@ -1,11 +1,15 @@
 <template>
   <header
-    class="py-4 flex sticky top-0 bg-white z-50 justify-between items-center"
+    class="py-4 flex sticky top-0 bg-white z-50 justify-between items-center flex-col md:flex-row"
   >
     <router-link to="/">
-      <h1 class="text-3xl font-semibold font-montserrat">cartier</h1>
+      <h1
+        class="text-3xl font-semibold font-montserrat text-center md:text-left"
+      >
+        cartier
+      </h1>
     </router-link>
-    <div class="flex gap-4 text-sm">
+    <div class="flex gap-4 text-sm mt-2 md:mt-0">
       <div
         @click="handleFavoritesClick"
         class="flex items-center gap-1 text-xs hover:bg-black cursor-pointer hover:text-white p-2 rounded-sm duration-200"
@@ -96,4 +100,40 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+@media (max-width: 425px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text-3xl {
+    text-align: center;
+  }
+
+  .text-sm {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (min-width: 426px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .text-3xl {
+    text-align: left;
+  }
+
+  .text-sm {
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 0;
+  }
+}
+</style>
