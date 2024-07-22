@@ -1,7 +1,10 @@
 <template>
-  <div class="flex flex-row gap-10">
+  <div class="flex flex-col sm:flex-row items-center sm:w-screen gap-10">
     <BaseSpinner class="w-1/2 max-w-1/2 h-[400px]" v-if="isLoading" />
-    <div v-else class="w-1/2 max-w-1/2 h-[400px] flex flex-col gap-4">
+    <div
+      v-else
+      class="w-screen sm:w-1/2 max-w-1/2 h-[400px] flex flex-col gap-4"
+    >
       <img
         class="w-full h-full object-contain bg-gray-100"
         :src="currentBigImage"
