@@ -16,7 +16,7 @@
     </button>
   </div>
   <BaseSpinner v-if="loading" />
-  <div v-else class="grid grid-cols-5 gap-4 mb-2">
+  <div v-else class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-2">
     <div v-if="filteredProducts.length === 0" class="text-center col-span-5">
       We can't find any products with the given search term.
     </div>
