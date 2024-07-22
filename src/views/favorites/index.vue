@@ -13,7 +13,7 @@
         ({{ favoriteStore.favoriteItemsCount }})</span
       >
     </div>
-    <div class="grid grid-cols-4 gap-2">
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2">
       <ProductCard
         v-for="favoriteItem in favoriteStore.favoriteItems"
         :key="favoriteItem.title"
