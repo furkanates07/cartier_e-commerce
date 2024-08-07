@@ -1,6 +1,6 @@
 <template>
   <header
-    class="py-4 flex sticky top-0 bg-white z-50 justify-between items-center flex-col md:flex-row"
+    class="py-4 flex sticky top-0 bg-white z-50 justify-between items-center flex-col md:flex-row px-4"
   >
     <router-link to="/">
       <h1
@@ -39,13 +39,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import TheCart from "./TheCart.vue";
-import { useCartStore } from "../../stores/cart";
-import { useAuthStore } from "../../stores/auth";
 import { useCartierToast } from "@/composables/useToast";
+import { onMounted, onUnmounted, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useAuthStore } from "../../stores/auth";
+import { useCartStore } from "../../stores/cart";
 import Login from "../ui/Login.vue";
+import TheCart from "./TheCart.vue";
 
 const route = useRoute();
 const router = useRouter();
