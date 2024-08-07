@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col sm:grid sm:grid-cols-4 gap-2 sm:gap-10">
+  <div class="flex flex-col sm:grid sm:grid-cols-4 gap-2 sm:gap-10 px-4">
     <div
       class="col-span-1 bg-gray-100 flex flex-col justify-center gap-2 h-min"
     >
@@ -17,7 +17,12 @@
           v-for="tab in tabs"
           :key="tab.key"
           @click="handleTabClick(tab.key)"
-          class="gap-2 hover:bg-blue-400 cursor-pointer font-semibold"
+          :class="[
+            'gap-2 hover:bg-blue-400 cursor-pointer font-semibold',
+            {
+              'hidden sm:block': tab.key === 'favorites' || tab.key === 'cart',
+            },
+          ]"
         >
           <div class="flex flex-row gap-2 py-3 px-6">
             <span class="material-symbols-outlined"> {{ tab.icon }} </span>
@@ -34,14 +39,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import Profile from "@/components/ui/Profile.vue";
-import Favorites from "@/views/favorites/index.vue";
-import Cart from "@/views/cart/index.vue";
-import Settings from "@/components/ui/Settings.vue";
 import Payment from "@/components/ui/Payment.vue";
-import { useAuthStore } from "../../stores/auth";
+import Profile from "@/components/ui/Profile.vue";
+import Settings from "@/components/ui/Settings.vue";
+import Cart from "@/views/cart/index.vue";
+import Favorites from "@/views/favorites/index.vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "../../stores/auth";
 import { useUserStore } from "../../stores/user";
 
 const userStore = useUserStore();
@@ -53,14 +58,14 @@ const tabs = [
     icon: "person",
   },
   {
-    name: "Cart",
-    key: "cart",
-    icon: "shopping_cart",
-  },
-  {
     name: "Favorites",
     key: "favorites",
     icon: "favorite",
+  },
+  {
+    name: "Cart",
+    key: "cart",
+    icon: "shopping_cart",
   },
   {
     name: "Payment",
