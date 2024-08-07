@@ -1,39 +1,43 @@
 <template>
-  <input
-    v-model="search"
-    type="text"
-    class="w-full mb-2 p-2 border border-gray-400 rounded-sm"
-    placeholder="Search for a product"
-  />
-  <div>
-    <button
-      v-for="category in categories"
-      :key="category"
-      @click="filterByCategory(category)"
-      class="mr-2 mb-2 p-1 border-none rounded-sm hover:bg-gray-200"
-    >
-      {{ category }}
-    </button>
-  </div>
-  <BaseSpinner v-if="loading" />
-  <div v-else class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-2">
-    <div v-if="filteredProducts.length === 0" class="text-center col-span-5">
-      We can't find any products with the given search term.
-    </div>
-    <ProductCard
-      v-for="product in filteredProducts"
-      :key="product.title"
-      v-bind="product"
+  <div class="px-4">
+    <input
+      v-model="search"
+      type="text"
+      class="w-full mb-2 p-2 border border-gray-400 rounded-sm"
+      placeholder="Search for a product"
     />
+    <div>
+      <button
+        v-for="category in categories"
+        :key="category"
+        @click="filterByCategory(category)"
+        class="mr-2 mb-2 p-1 border-none rounded-sm hover:bg-gray-200"
+      >
+        {{ category }}
+      </button>
+    </div>
+    <BaseSpinner v-if="loading" />
+    <div
+      v-else
+      class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-2"
+    >
+      <div v-if="filteredProducts.length === 0" class="text-center col-span-5">
+        We can't find any products with the given search term.
+      </div>
+      <ProductCard
+        v-for="product in filteredProducts"
+        :key="product.title"
+        v-bind="product"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-
-import { IProduct } from "@/interfaces/product.interface";
-import ProductCard from "@/components/ui/ProductCard.vue";
 import BaseSpinner from "@/components/ui/BaseSpinner.vue";
+import ProductCard from "@/components/ui/ProductCard.vue";
+import { IProduct } from "@/interfaces/product.interface";
+import { computed, onMounted, ref } from "vue";
 
 const products = ref<IProduct[]>([]);
 const search = ref<string>("");
@@ -87,3 +91,5 @@ const shuffle = (array: IProduct[]) => {
 
 onMounted(fetchProducts);
 </script>
+
+<style scoped></style>
