@@ -72,7 +72,12 @@ const handleCartClick = () => {
     toast.showInfoMessage("You need to be signed in to view the cart.");
     return;
   }
-  toggleCart();
+
+  if (window.innerWidth >= 768) {
+    toggleCart();
+  } else {
+    router.push("/cart");
+  }
 };
 
 const handleClickOutside = (event: MouseEvent) => {
