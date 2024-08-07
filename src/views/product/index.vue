@@ -1,17 +1,14 @@
 <template>
-  <div class="flex flex-col sm:flex-row items-center sm:w-screen gap-10">
-    <BaseSpinner class="w-1/2 max-w-1/2 h-[400px]" v-if="isLoading" />
-    <div
-      v-else
-      class="w-screen sm:w-1/2 max-w-1/2 h-[400px] flex flex-col gap-4"
-    >
+  <div class="flex flex-col md:flex-row gap-10 w-full px-4">
+    <BaseSpinner class="w-full h-[400px]" v-if="isLoading" />
+    <div v-else class="w-full md:w-1/2 h-[400px] flex flex-col gap-4">
       <img
         class="w-full h-full object-contain bg-gray-100"
         :src="currentBigImage"
       />
     </div>
     <div
-      class="flex flex-col gap-2 w-1/2 h-full items-baselines justify-center"
+      class="flex flex-col gap-2 w-full md:w-1/2 h-full items-baselines justify-center"
     >
       <div class="flex flex-row justify-between font-semibold">
         <h1 class="text-2xl">{{ product?.title }}</h1>
@@ -23,16 +20,14 @@
       <h2 class="font-semibold">{{ product?.brand }}</h2>
       <p>{{ product?.description }}</p>
       <h2 class="text-xl">${{ product?.price }}</h2>
-
       <div class="w-full h-full grid grid-cols-4 gap-3 mt-5">
         <img
           v-for="(image, index) in product?.images"
           :src="image"
-          class="w-full h-20 object-cover border border-gray-300 cursor-pointer"
+          class="w-full h-20 object-contain border border-gray-300 cursor-pointer"
           @click="changeBigImage(index)"
         />
       </div>
-
       <div class="items-center grid grid-cols-8 gap-1 mt-5 h-12">
         <button
           @click="cartStore.addItem({ product: { ...product! }, quantity })"
@@ -60,12 +55,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import BaseSpinner from "@/components/ui/BaseSpinner.vue";
 import { IProduct } from "@/interfaces/product.interface";
-import { useRoute } from "vue-router";
 import { useCartStore } from "@/stores/cart";
 import { useFavoriteStore } from "@/stores/favorites";
-import BaseSpinner from "@/components/ui/BaseSpinner.vue";
+import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
 const cartStore = useCartStore();
 const favoriteStore = useFavoriteStore();
