@@ -115,8 +115,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
+import { ref } from "vue";
 
 const newCard = ref({
   cardNumber: "",
@@ -166,7 +166,7 @@ const formatExpiry = () => {
 
 const validateCVV = () => {
   newCard.value.cvv = newCard.value.cvv.replace(/\D/g, "").trim();
-  return true; // or return false if the validation fails
+  return true;
 };
 
 const validateCardNumber = () => {
