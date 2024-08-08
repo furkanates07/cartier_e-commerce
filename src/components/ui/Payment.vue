@@ -115,6 +115,7 @@
 </template>
 
 <script setup lang="ts">
+import { useCartierToast } from "@/composables/useToast";
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 
@@ -125,11 +126,17 @@ const newCard = ref({
 });
 
 const userStore = useUserStore();
+const toast = useCartierToast();
 
 const cards = userStore.userProfile.savedCards;
 
 const addCard = async () => {
   if (validateCardNumber() && validateExpiry() && validateCVV()) {
+    if (checkDuplicateCard()) {
+      toast.showErrorMessage("This card is already saved");
+      return;
+    } else {
+    }
     await userStore.addCard({ ...newCard.value });
     newCard.value.cardNumber = "";
     newCard.value.expiryDate = "";
@@ -187,6 +194,14 @@ const validateExpiry = () => {
     expiryError.value = "";
     return true;
   }
+};
+
+const checkDuplicateCard = () => {
+  return cards.some(
+    (card) =>
+      card.cardNumber.replace(/\s/g, "") ===
+      newCard.value.cardNumber.replace(/\s/g, "")
+  );
 };
 </script>
 
