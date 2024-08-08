@@ -57,7 +57,6 @@ const cartStore = useCartStore();
 const coupon = ref("");
 
 const handleCoupon = () => {
-  // Coupon input only allows, A-Z, 0-9, and -
   coupon.value = coupon.value.replace(/[^A-Z0-9-]/g, "");
 };
 </script>
